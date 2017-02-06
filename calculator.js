@@ -332,9 +332,5 @@ function run_eval() {
         return;
     }
     
-    console.log("Middlefix: " + exp_str);
-    console.log("Postfix: " + postfix_exp);
-    console.log("Result: " + result);
-
     element.value = result;
 }
