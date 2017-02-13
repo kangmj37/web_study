@@ -83,7 +83,7 @@ function _is_operator_char(str, idx) {
         return true;
     }
     if (char == '-') {
-        if (idx > 1 && str.charAt(idx - 1) == '(') {
+        if (idx > 0 && str.charAt(idx - 1) == '(') {
             return false
         }
         return true;
