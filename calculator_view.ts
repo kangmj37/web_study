@@ -22,17 +22,17 @@ function CreateOperationObj<T extends string>(val:T): OPER_TYPE<T,OPER_ENUM._OPE
         action: (target:string): string => (target.length > 0 && target.charAt(target.length - 1) == ')' ? target : target + val)
     };
 }
-let oper_zero = CreateOperationObj<'0'>('0');
-let oper_one = CreateOperationObj<'1'>('1');
-let oper_two = CreateOperationObj<'2'>('2');
-let oper_three = CreateOperationObj<'3'>('3');
-let oper_four = CreateOperationObj<'4'>('4');
-let oper_five = CreateOperationObj<'5'>('5');
-let oper_six = CreateOperationObj<'6'>('6');
-let oper_seven = CreateOperationObj<'7'>('7');
-let oper_eight = CreateOperationObj<'8'>('8');
-let oper_nine = CreateOperationObj<'9'>('9');
-let oper_dot = CreateOperationObj<'.'>('.');
+export let oper_zero = CreateOperationObj<'0'>('0');
+export let oper_one = CreateOperationObj<'1'>('1');
+export let oper_two = CreateOperationObj<'2'>('2');
+export let oper_three = CreateOperationObj<'3'>('3');
+export let oper_four = CreateOperationObj<'4'>('4');
+export let oper_five = CreateOperationObj<'5'>('5');
+export let oper_six = CreateOperationObj<'6'>('6');
+export let oper_seven = CreateOperationObj<'7'>('7');
+export let oper_eight = CreateOperationObj<'8'>('8');
+export let oper_nine = CreateOperationObj<'9'>('9');
+export let oper_dot = CreateOperationObj<'.'>('.');
 oper_dot.action = (target:string):string => {
     let i: number, len = target.length;
     let c: string, last_c: string;
@@ -58,7 +58,7 @@ oper_dot.action = (target:string):string => {
 
     return target + ".";
 }
-let oper_negative = CreateOperationObj<'+/-'>('+/-');
+export let oper_negative = CreateOperationObj<'+/-'>('+/-');
 oper_negative.action = (target:string):string => {
     let i: number, len = target.length;
     let c: string;
@@ -98,16 +98,16 @@ function CreateOperatorObj<T extends string>(val:T): OPER_TYPE<T,OPER_ENUM._OPER
         }
     };
 }
-let oper_remain = CreateOperatorObj<'%'>('%');
-let oper_plus = CreateOperatorObj<'+'>('+');
-let oper_minus = CreateOperatorObj<'-'>('-');
-let oper_multi =  CreateOperatorObj<'x'>('x');
-let oper_div =  CreateOperatorObj<'/'>('/');
-let oper_cancel = CreateOperatorObj<'C'>('C');
+export let oper_remain = CreateOperatorObj<'%'>('%');
+export let oper_plus = CreateOperatorObj<'+'>('+');
+export let oper_minus = CreateOperatorObj<'-'>('-');
+export let oper_multi =  CreateOperatorObj<'x'>('x');
+export let oper_div =  CreateOperatorObj<'/'>('/');
+export let oper_cancel = CreateOperatorObj<'C'>('C');
 oper_cancel.action = (target:string):string => ('');
-let oper_del = CreateOperatorObj<'->'>('->');
+export let oper_del = CreateOperatorObj<'->'>('->');
 oper_del.action = (target:string):string => (target.length > 0 ? target.substring(0, target.length - 1) : '');
-let oper_parenthesis = CreateOperatorObj<'( )'>('( )');
+export let oper_parenthesis = CreateOperatorObj<'( )'>('( )');
 oper_parenthesis.action = (target:string):string => {
     let i:number, len = target.length, cnt1 = 0, cnt2 = 0; 
     let c:string;
@@ -132,7 +132,7 @@ oper_parenthesis.action = (target:string):string => {
 }
 
 //function Operate_number<T extends OPER_NUMBER>():
-class CalculatorView {
+export class CalculatorView {
     private _display_value: string;
     private _action: OPER_ALL[][];
     
@@ -183,27 +183,3 @@ class CalculatorView {
         return this._display_value;
     }
 }
-
-let cal_view = new CalculatorView();
-
-cal_view.AddAction(oper_zero);
-cal_view.AddAction(oper_one);
-cal_view.AddAction(oper_two);
-cal_view.AddAction(oper_three);
-cal_view.AddAction(oper_four);
-cal_view.AddAction(oper_five);
-cal_view.AddAction(oper_six);
-cal_view.AddAction(oper_seven);
-cal_view.AddAction(oper_eight);
-cal_view.AddAction(oper_nine);
-cal_view.AddAction(oper_dot);
-cal_view.AddAction(oper_negative);
-
-cal_view.AddAction(oper_cancel);
-cal_view.AddAction(oper_del);
-cal_view.AddAction(oper_parenthesis);
-cal_view.AddAction(oper_plus);
-cal_view.AddAction(oper_minus);
-cal_view.AddAction(oper_multi);
-cal_view.AddAction(oper_div);
-cal_view.AddAction(oper_remain);
