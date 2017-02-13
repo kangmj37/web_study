@@ -136,9 +136,13 @@ class CalculatorView {
     private _display_value: string;
     private _action: OPER_ALL[][];
     
-    constructor() {
+    private _Init() {
         this._display_value = "";
+    }
+    
+    constructor() {
         this._action = new Array(OPER_ENUM._MAX);
+        this._Init();
     }
 
     AddAction(oper: OPER_ALL): void {
@@ -173,7 +177,11 @@ class CalculatorView {
 
     AddOperator(value: string): void {
         this._RunAction(value, OPER_ENUM._OPERATOR);        
-    }   
+    }
+
+    get display_name(): string {
+        return this._display_value;
+    }
 }
 
 let cal_view = new CalculatorView();
