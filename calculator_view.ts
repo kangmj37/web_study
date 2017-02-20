@@ -46,14 +46,14 @@ oper_dot.action = (target:string):string => {
     
     for (i = len - 1; i >= 0; i--) {
         c = target.charAt(i);
-        if (isNaN(c)) {
+        if (isNaN(Number(c))) {
             if (c == '.')
                 return target;  // XX.XX
             break;
         }
     }
 
-    if (isNaN(last_c))
+    if (isNaN(Number(last_c)))
         return target + "0.";
 
     return target + ".";
@@ -71,7 +71,7 @@ oper_negative.action = (target:string):string => {
     // get last digit idx
     for (i = len; i > 0; i--) {
         c = target.charAt(i - 1);
-        if (isNaN(c) && c != '.')
+        if (isNaN(Number(c)) && c != '.')
             break;  // not number
     }
     if (i > 1) {
@@ -141,7 +141,10 @@ export class CalculatorView {
     }
     
     constructor() {
+        let i: number;
         this._action = new Array(OPER_ENUM._MAX);
+        for (i = 0; i <OPER_ENUM._MAX; i++)
+            this._action[i] = new Array();
         this._Init();
     }
 

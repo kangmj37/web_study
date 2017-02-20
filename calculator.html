@@ -1,7 +1,6 @@
 <html>
     <title>calculator</title>
-    <script src="require.js"></script>
-    <script src="calculator_obj.js"></script>
+    <script data-main="calculator_obj" src="require.js"></script>
     <style>
         input {
             width:100%;
@@ -36,19 +35,19 @@
                     <td><input type="button" class="operator" onClick="add_operator(this.value)" value="/"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="7"></td>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="8"></td>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="9"></td>
+                    <td><input type="button" class="number" id="7" value="7"></td>
+                    <td><input type="button" class="number" id="8" value="8"></td>
+                    <td><input type="button" class="number" id="9" value="9"></td>
                     <td><input type="button" class="operator" onClick="add_operator(this.value)" value="x"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="4"></td>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="5"></td>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="6"></td>
+                    <td><input type="button" class="number" id="4" value="4"></td>
+                    <td><input type="button" class="number" id="5" value="5"></td>
+                    <td><input type="button" class="number" id="6" value="6"></td>
                     <td><input type="button" class="operator" onClick="add_operator(this.value)" value="-"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" class="number" onClick="add_number(this.value)" value="1"></td>
+                    <td><input type="button" class="number" onClick="cal_obj.add_number(this.value)" value="1"></td>
                     <td><input type="button" class="number" onClick="add_number(this.value)" value="2"></td>
                     <td><input type="button" class="number" onClick="add_number(this.value)" value="3"></td>
                     <td><input type="button" class="operator" onClick="add_number(this.value)" value="+"></td>

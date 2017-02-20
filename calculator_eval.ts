@@ -33,8 +33,8 @@ export class CalculatorEval {
 
         while(idx < len) {
             c = str.charAt(idx);
-            if (isNaN(c) ||
-                (idx + 1 < len && idx > 0 && str.charAt(idx - 1) == '(' && c == '-' && !isNaN(str.charAt(idx + 1)))) {
+            if (isNaN(Number(c)) ||
+            (idx + 1 < len && idx > 0 && str.charAt(idx - 1) == '(' && c == '-' && !isNaN(Number(str.charAt(idx + 1))))) {
                 if (c == '-') {
                      postfix = postfix + '-';
                      idx++;
@@ -42,7 +42,7 @@ export class CalculatorEval {
 
                 for (i = idx; i < len; i++) {
                     c = str.charAt(i);
-                    if (isNaN(c) && c != '.') break;
+                    if (isNaN(Number(c)) && c != '.') break;
                     postfix = postfix + c;
                     idx++;
                 }
@@ -88,7 +88,7 @@ export class CalculatorEval {
     }
 
     private _CalPostfix(postfix:string): string | number{
-        let idx = 0, i: number, postfix_len = postfix.length, c;
+        let idx = 0, i: number, postfix_len = postfix.length, c: string;
         let number_stack: number[] = [];
         let number_stack_top: number = -1;
         let max_float_tofix = 1;
@@ -96,7 +96,7 @@ export class CalculatorEval {
 
         while (idx < postfix_len) {
             c = postfix.charAt(idx);
-            if (!isNaN(c) ||
+            if (!isNaN(Number(c)) ||
                 (idx + 1 < postfix_len && c == '-' && postfix.charAt(idx + 1) != ' ')) {
                 // No !isNaN(postfix.charAt(idx + 1)). because isNaN(' ') is false ...
                 let num: number, start_idx = idx, is_float = false, float_tofix = 0;
