@@ -37,7 +37,7 @@ define(["require", "exports"], function (require, exports) {
                 return "error";
             while (idx < len) {
                 c = str.charAt(idx);
-                if (isNaN(Number(c)) ||
+                if (!isNaN(Number(c)) ||
                     (idx + 1 < len && idx > 0 && str.charAt(idx - 1) == '(' && c == '-' && !isNaN(Number(str.charAt(idx + 1))))) {
                     if (c == '-') {
                         postfix = postfix + '-';
@@ -128,7 +128,7 @@ define(["require", "exports"], function (require, exports) {
                         return "error";
                     num2 = number_stack[number_stack_top];
                     num1 = number_stack[number_stack_top - 1];
-                    number_stack_top -= -2;
+                    number_stack_top -= 2;
                     switch (c) {
                         case '+':
                             cal_num = Number(num1) + Number(num2);

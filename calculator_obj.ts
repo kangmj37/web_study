@@ -1,7 +1,10 @@
-import view_m = require("./calculator_view");
-import eval_m = require("./calculator_eval");
-//import * as view_m from "./calculator_view";
-//import * as eval_m from "./calculator_eval";
+
+let cal_obj;
+
+//import view_m = require("./calculator_view");
+//import eval_m = require("./calculator_eval");
+import * as view_m from "./calculator_view";
+import * as eval_m from "./calculator_eval";
 
 class _exports {
     private _target: HTMLInputElement;
@@ -9,6 +12,9 @@ class _exports {
 	private _eval_obj: eval_m.CalculatorEval;
 
 	constructor(target: HTMLInputElement) {
+        this._view_obj = new view_m.CalculatorView();
+        this._eval_obj = new eval_m.CalculatorEval();
+
 		this._view_obj.AddAction(view_m.oper_zero);
 		this._view_obj.AddAction(view_m.oper_one);
 		this._view_obj.AddAction(view_m.oper_two);
@@ -34,7 +40,7 @@ class _exports {
         this._target = target;
 	}
 
-    private _add_number = (value: string): any => {
+    add_number = (value: string): any => {
         let display_output: string;
         let element = this._target;
 
@@ -44,7 +50,7 @@ class _exports {
         element.value = display_output;
     }
 
-    private _add_operator = (value: string): any => {
+    add_operator = (value: string): any => {
         let display_output: string;
         let element = this._target;
 
@@ -54,7 +60,7 @@ class _exports {
         element.value = display_output;
     }
 
-    private _run_eval = (): any => {
+    run_eval = (): any => {
         let element = this._target;
         let ret: number | string;
 
@@ -65,25 +71,37 @@ class _exports {
         }
         element.value = ret.toString();
     }
-
-    add_number_event = (value: string[]): void => {
-        for (let i = 0; i < value.length; i++)
-            document.getElementById(value[i]).onclick = (function(value:string) {
-                return this._add_number(value[i]);
-            )(value[i])};
-    }
-
-    add_operator_event = (value: string[]): void =>{
-        for (let i = 0; i < value.length; i++)
-            document.getElementById(value[i]).onclick = this._add_operator(value[i]);
-    }
-    
-    add_eval_event = (value: string[]): void => {
-        for (let i = 0; i < value.length; i++)
-            document.getElementById(value[i]).onclick = this._run_eval(value[i]);
-    }
 }
 
 let element = <HTMLInputElement>document.getElementById("output");
-let cal_obj = new _exports(element);
+cal_obj = new _exports(element);
+let i: number;
+let cal_nums: string[] = ["0","1","2","3","4","5","6","7","8","9",".","+/-"];
+for (i = 0; i < cal_nums.length; i++) {
+    let _func = (function(value, obj) {
+        let _func = (): void => {
+            obj.add_number(value);
+        }
+        return _func;
+    }(cal_nums[i], cal_obj));
+    document.getElementById(cal_nums[i]).addEventListener("click", _func)
+}
 
+let cal_operators: string[] = ["C","->","( )","+","-","x","/","%"];
+for (i = 0; i < cal_operators.length; i++) {
+    let _func = (function(value, obj) {
+        let _func = (): void => {
+            obj.add_operator(value);
+        }
+        return _func;
+    }(cal_operators[i], cal_obj));
+    document.getElementById(cal_operators[i]).addEventListener("click", _func)
+}
+
+let _func = (function(obj) {
+    let _func = (): void => {
+        obj.run_eval();
+    }
+    return _func;
+}(cal_obj));
+document.getElementById("=").addEventListener("click", _func)

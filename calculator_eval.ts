@@ -33,7 +33,7 @@ export class CalculatorEval {
 
         while(idx < len) {
             c = str.charAt(idx);
-            if (isNaN(Number(c)) ||
+            if (!isNaN(Number(c)) ||
             (idx + 1 < len && idx > 0 && str.charAt(idx - 1) == '(' && c == '-' && !isNaN(Number(str.charAt(idx + 1))))) {
                 if (c == '-') {
                      postfix = postfix + '-';
@@ -123,7 +123,7 @@ export class CalculatorEval {
                     return "error";
                 num2 = number_stack[number_stack_top];
                 num1 = number_stack[number_stack_top - 1];
-                number_stack_top -= -2;
+                number_stack_top -= 2;
                 switch (c) {
                     case '+':
                         cal_num = Number(num1) + Number(num2);
@@ -152,7 +152,7 @@ export class CalculatorEval {
         }
 
         if (number_stack_top != 0)
-            return "error";
+			return "error";
 
         result_str = number_stack[0].toString();
         for (i = 0; i < result_str.length; i++) {
